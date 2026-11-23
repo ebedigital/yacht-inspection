@@ -39,7 +39,9 @@ const masterItems=sectionsData.flatMap(([section,items])=>items.map(([id,name,mo
 // Boat settings version 1 — local browser storage; no shared cloud database.
 const BOAT_KEY='cy-managed-boats-v1';
 const BEIRUT_DISABLED=[32,35,36,37,38,39,41,42,43,49,58,61,63,64,65,66,69,71,72,75];
-function defaultCatalog(){return {'Beirut':{disabledIds:[...BEIRUT_DISABLED],customItems:[]}}}
+// Demo boats provide a full 76-item template until individually customized.
+const SAMPLE_FULL_BOATS=['Start Me Up','Lady Laura','Executive Decision','Insatiable'];
+function defaultCatalog(){const c={'Beirut':{disabledIds:[...BEIRUT_DISABLED],customItems:[]}};for(const name of SAMPLE_FULL_BOATS)c[name]={disabledIds:[],customItems:[]};return c;}
 function validCatalog(obj){
   if(!obj||typeof obj!=='object'||Array.isArray(obj))throw Error('Invalid boat list');
   const clean={};const used=new Set();
@@ -53,7 +55,21 @@ function validCatalog(obj){
   return clean;
 }
 let boatCatalog=defaultCatalog();
-try{const stored=localStorage.getItem(BOAT_KEY);if(stored)boatCatalog=validCatalog(JSON.parse(stored))}catch(e){console.warn('Boat catalog could not be restored',e)}
+try{
+ const stored=localStorage.getItem(BOAT_KEY);
+ if(stored){
+  boatCatalog=validCatalog(JSON.parse(stored));
+  // One-time additive migration: keep existing customizations and import example boats.
+  // Once applied, deleted sample boats will not be re-added on subsequent launches.
+  if(!localStorage.getItem('cy-boat-comparison-samples-v1')){
+   for(const name of SAMPLE_FULL_BOATS){
+    if(!Object.keys(boatCatalog).some(n=>n.toLowerCase()===name.toLowerCase()))boatCatalog[name]={disabledIds:[],customItems:[]};
+   }
+   localStorage.setItem(BOAT_KEY,JSON.stringify(boatCatalog));
+   localStorage.setItem('cy-boat-comparison-samples-v1','1');
+  }
+ }
+}catch(e){console.warn('Boat catalog could not be restored',e)}
 function persistBoats(){try{localStorage.setItem(BOAT_KEY,JSON.stringify(boatCatalog));return true}catch(e){alert('Unable to save boat list. Export your boat settings as backup.');return false}}
 function currentBoatConfig(){return boatCatalog[state.boat]||{disabledIds:[],customItems:[]}}
 function activeSections(){const cfg=currentBoatConfig(),ex=new Set(cfg.disabledIds);return sectionsData.map(([name,rows])=>[name,[...rows.filter(([id])=>!ex.has(id)),...cfg.customItems.filter(x=>x.section===name).map(x=>[x.id,x.name,x.mode])]]).filter(([,rows])=>rows.length)}
