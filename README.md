@@ -1,18 +1,25 @@
-# Combined Yachting – Monthly Inspection (GitHub Pages test deployment)
+# Combined Yachting Monthly Inspection — V1.4 Boat Manager
 
-This is the uploaded inspection app, adapted for GitHub Pages. No server or build is required.
+## What changed
+- Retains the familiar V1.4 design and black/red PDF branding.
+- Beirut preset shows **56 applicable checkpoints**; the 20 N/A items from Travis's September 29, 2026 report are excluded from the inspection and PDF. All **remaining results start blank**, never copied as Pass/Fail.
+- Add other boats from **Manage Boats & Checklists**, using the full 76-item master list by default.
+- Toggle checklist items on/off for each boat, and add custom single or Port/Starboard checkpoints. PDF reflects the chosen boat-specific list.
+- Export/Import Boat List as JSON to move settings across browsers or make backups.
+- Save Draft and inspection JSON backup remain local to the browser.
 
-## Deploy
-1. Make a new GitHub repository (suggested name: `yacht-inspection`).
-2. Upload `index.html` and `.nojekyll` in repository root, commit to `main`.
-3. In Settings > Pages, select **Deploy from a branch**, branch **main**, folder **/(root)**, Save.
-4. Visit `https://YOURUSERNAME.github.io/yacht-inspection/`.
+## IMPORTANT limitation
+GitHub Pages serves static files only. Boat settings in this edition use **localStorage**, so adding or editing a boat is NOT shared across other devices or browsers. Each inspector needs to import the exported boat list; there is no shared Firebase database, login, or automatic JobTread upload. A future secured database integration is required for centrally managed boats. Because the page is publicly accessible, do not store sensitive real client data in this version.
 
-## Important limitations
-- This version has 76 actual checklist entries (#1–77 except #15), matching the previously supplied PDF.
-- The boat name field has four example suggestions, but NO shared database or real boat management yet.
-- `?boat=Start%20Me%20Up` can prepopulate the boat field, but it does not load a unique boat-specific checklist.
-- Drafts are in the current browser's localStorage only. They do NOT sync between devices.
-- Generated PDF uses Print > Save as PDF.
-- No staff login, Firebase connection, automatic JobTread upload, or cloud backup is implemented.
-- GitHub Pages is public: do not commit clients' private data, credentials, API keys, downloaded inspection reports, or backups into this repository. Test with non-sensitive information until authenticated cloud storage is implemented.
+## Update GitHub Pages with GitHub Desktop
+1. Extract the ZIP.
+2. Replace `index.html` in your local `yacht-inspection` repository with this `index.html` (optionally copy README.md).
+3. In GitHub Desktop commit the changes, then **Push origin**.
+4. Reload GitHub Pages after deployment (hard refresh if cached).
+
+## Quick test
+1. Select Beirut: expected `56` inspection items; no A/C Units #32 in the form or PDF.
+2. Add a new boat: expected `76` inspection items.
+3. Manage checklist: uncheck #32 and check the counter decreases to `75` for that boat.
+4. Add a custom item; it appears in the appropriate section and PDF.
+5. Export boat list, import into a different browser, verify boat-specific settings follow.
