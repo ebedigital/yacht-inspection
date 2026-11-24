@@ -1,17 +1,12 @@
-# Combined Yachting Monthly Inspection – V1.4 Boat Comparison
+# Combined Yachting – Weekly + Monthly Inspection (GitHub Pages)
 
-This update adds four example boat entries to the existing Boat Manager:
+Upload `index.html`, `weekly.html`, and `.nojekyll` to the root of your existing `yacht-inspection` GitHub repository. Commit and push to `main`.
 
-- **Beirut** — 56 checkpoints (20 N/A items excluded from the September 29 report)
-- **Start Me Up** — 76 checkpoints (full master checklist)
-- **Lady Laura** — 76 checkpoints (full master checklist)
-- **Executive Decision** — 76 checkpoints (full master checklist)
-- **Insatiable** — 76 checkpoints (full master checklist)
-
-The four non-Beirut boats are **demonstration full-checklist templates only**, not confirmed boat-specific checklists. Each can be customized using **Manage Boats & Checklists**. Existing saved boat settings and customizations are preserved by a one-time additive migration.
-
-## Deploy to GitHub Pages
-Replace the `index.html` in your local `yacht-inspection` repository with this file. Commit and **Push origin** via GitHub Desktop. Keep `.nojekyll` in the repo. Refresh the site after deployment.
-
-## Important
-Boat templates and inspection drafts still save to **this browser only**, not Firebase. Changes on one device will NOT appear on Travis's device unless exported and imported as Boat List JSON. No login or JobTread API upload is implemented. Don't use confidential boat/client data on this publicly available test app.
+- Monthly: `https://ebedigital.github.io/yacht-inspection/`
+- Weekly: `https://ebedigital.github.io/yacht-inspection/weekly.html`
+- Weekly supports boat selection, Add Boat, Customize Checklist, custom checkpoints, local draft saving, JSON backup, PDF preview and print-to-PDF.
+- Executive Decision begins with the 81 inspection checkpoints from Sheree's 2026-11-06 form.
+- Beirut, Start Me Up, Lady Laura, and Insatiable begin with a provisional copy of the 81-item weekly checklist. Customize each boat before using operationally.
+- **Caution:** Weekly boat settings, draft reports, and checklist customizations are saved **only on the current device's browser**. Other devices will NOT see newly added boats/customizations. Export boat settings to transfer. A shared database and authentication are not implemented.
+- Public GitHub Pages is not access-controlled. Do not enter sensitive client information until appropriate access control is implemented.
+- This package is not automatically published to your GitHub account; commit and push the files yourself.
