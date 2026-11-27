@@ -25,7 +25,7 @@ if (header && topbar && toolbar) {
       header .cy-user-bar button { min-height:38px; padding:7px 12px!important; }
       header .cy-menu-toggle { display:inline-flex!important; order:1; margin-left:auto; }
       header .cy-toolbar { display:none!important; padding:12px 0 0!important; }
-      header.cy-menu-open .cy-toolbar { display:block!important; }
+      header .cy-app-head.cy-menu-open .cy-toolbar { display:block!important; }
       header .cy-toolbar .actions { display:grid!important; grid-template-columns:1fr 1fr;
         align-items:stretch!important; gap:9px!important; width:100%!important;
         max-height:min(55vh,440px); overflow-y:auto; overscroll-behavior:contain; }
